@@ -23,23 +23,23 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="completename" class="form-label">Name</label>
-                        <input type="email" class="form-control" id="completename" placeholder="Enter your name">
+                        <input type="text" class="form-control" id="completename" placeholder="Enter your name">
                     </div>
                     <div class="mb-3">
                         <label for="completeemail" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="completeemail" placeholder="Enter your email">
+                        <input type="text" class="form-control" id="completeemail" placeholder="Enter your email">
                     </div>
                     <div class="mb-3">
                         <label for="completemobile" class="form-label">Mobile</label>
-                        <input type="email" class="form-control" id="completemobile" placeholder="Enter your mobile">
+                        <input type="text" class="form-control" id="completemobile" placeholder="Enter your mobile">
                     </div>
                     <div class="mb-3">
                         <label for="completeplace" class="form-label">Place</label>
-                        <input type="email" class="form-control" id="completeplace" placeholder="Enter your place">
+                        <input type="text" class="form-control" id="completeplace" placeholder="Enter your place">
                     </div>
                 </div>
                 <div class="modal-footer">
-                     <button type="button" class="btn btn-dark">Submit</button>
+                     <button type="button" class="btn btn-dark" onclick="adduser()">Submit</button>
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
                   
                 </div>
@@ -49,9 +49,10 @@
     <div class="container">
         <h1 class="text-center">PRVI DOMACI ITEH 2021</h1>
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#completeModel">
+        <button type="button" class="btn btn-dark my-3" data-bs-toggle="modal" data-bs-target="#completeModel">
             Add new user
         </button>
+        <div id="displayDataTable"></div>
     </div>
 
 
@@ -62,6 +63,58 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script>
+    <script>
+        $(document).ready(function(){
+            displayData();
+        });
+        function displayData(){
+            var displayData="true";
+            $.ajax({
+                url:"display.php",
+                type:'post',
+                data:{
+                   displaySend:displayData
+                },
+                success:function(data,status){
+                    $('#displayDataTable').html(data);
+                }
+            });
+        }
+        function adduser(){
+            var nameAdd = $('#completename').val();
+            var emailAdd = $('#completeemail').val();
+            var mobileAdd = $('#completemobile').val();
+            var placeAdd = $('#completeplace').val();
+            console.log(nameAdd,emailAdd,mobileAdd,placeAdd);
+            $.ajax({
+                url:"insert.php",
+                type:'post',
+                data:{
+                    nameSend:nameAdd,
+                    emailSend:emailAdd,
+                    mobileSend:mobileAdd,
+                    placeSend:placeAdd
+                },
+                success:function(data,status){
+                    displayData();
+                }
+            });
+        }
+
+        function deleteUser(deleteid){
+            $.ajax({
+                url:"delete.php",
+                type:'post',
+                data:{
+                    deleteSend:deleteid
+                },
+                success:function(data,status){
+                    displayData();
+                }
+            });
+        }
+
     </script>
 </body>
 
