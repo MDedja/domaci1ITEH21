@@ -17,6 +17,7 @@ if(isset($_POST['displaySend'])){
 
     $sql="SELECT * FROM user";
     $result = mysqli_query($conn,$sql);
+    $number = 1;
     while($row=mysqli_fetch_assoc($result)){
         $id = $row['id'];
         $name = $row['name'];
@@ -24,16 +25,17 @@ if(isset($_POST['displaySend'])){
         $mobile = $row['mobile'];
         $place = $row['place'];
         $table.='<tr>
-        <td scope="row">'.$id.'</td>
+        <td scope="row">'.$number.'</td>
         <td>'.$name.'</td>
         <td>'.$email.'</td>
         <td>'.$mobile.'</td>
         <td>'.$place.'</td>
         <td>
-            <button class="btn btn-dark">UPDATE</button>
+            <button class="btn btn-dark" onclick="updateUser('.$id.')">UPDATE</button>
             <button class="btn btn-danger" onclick="deleteUser('.$id.')">DELETE</button>
         </td>
       </tr>';
+      $number++;
     }
     $table.='</table>';
     echo $table;
