@@ -27,7 +27,11 @@ if(isset($_POST['hiddendata'])){
     $mobile = $_POST['updatemobile'];
     $place = $_POST['updateplace'];
 
-    $sql = "UPDATE user SET name='$name',email='$email',mobile='$mobile',place='$place' WHERE id=$uniqueid";
+    
+
+    $sql = "update user set name='$name',email='$email',mobile='$mobile',place='$place' where id=$uniqueid";
+
+    
 
     $result=mysqli_query($conn,$sql);
     

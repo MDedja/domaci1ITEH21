@@ -174,11 +174,21 @@
         var updateemail = $('#updateemail').val();
         var updatemobile = $('#updatemobile').val();
         var updateplace = $('#updateplace').val();
-        var hiddendata=$('#hiddendata').val();
+        var hiddendata=$('#hiddenData').val();
 
-        $.post("update.php",{updatename:updatename,updateemail:updateemail,updatemobile:updatemobile,updateplace:updateplace,
-            hiddendata:hiddendata}),function(data,status){
+        console.log(1);
+
+        $.post("update.php",{
+            updatename:updatename,
+            updateemail:updateemail,
+            updatemobile:updatemobile,
+            updateplace:updateplace,
+            hiddendata:hiddendata
+        },function(data,status){
+                console.log(2);
                 $('#updateModal').modal('hide');
+                console.log(3);
+                console.log(hiddendata);
                 displayData();
         });
     }
